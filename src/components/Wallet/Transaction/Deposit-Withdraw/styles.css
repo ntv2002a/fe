@@ -1,0 +1,14 @@
+.Dropdown-item {
+    color: white;
+    background-color: black;
+}
+
+.Dropdown-item:active {
+    color: white;
+    background-color: black;
+}
+
+.Dropdown-item:hover {
+    color: white;
+    background-color: black;
+}

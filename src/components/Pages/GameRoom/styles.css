@@ -1,0 +1,42 @@
+.div-0 {
+    width: 100wh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.div-player-1 {
+    width: 400px;
+    height: 200px;
+    background:red;
+}
+
+.div-player-2 {
+    width: 400px;
+    height: 200px;
+    background: blue;
+}
+
+.div-player-3 {
+    width: 400px;
+    height: 200px;
+    background: green;
+}
+
+.div-player-4 {
+    width: 400px;
+    height: 200px;
+    background: yellow;
+}
+
+.div-1 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.div-2 {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
