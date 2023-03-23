@@ -30,13 +30,14 @@ export function Deposit({ signingClient, address, }: DepositProps) {
 
     const handleFetchGetDeposit = async () => {
         let data = null;
+        let address = globalContext?.user?.address
         try {
           const response = await fetch("http://192.168.10.65:3001/get-verify-token", {
             method: 'POST',
             headers: {
               "Content-type": "application/json"
             },
-            body: JSON.stringify({})
+            body: JSON.stringify({ address })
           })
           data = await response.json();
         } catch (error) {
@@ -78,6 +79,7 @@ export function Deposit({ signingClient, address, }: DepositProps) {
                     alert("Failed to send tx: " + sendResult.rawLog);
                 } else {
                     let txHash: string = sendResult.transactionHash;
+                    let address = globalContext.user?.address;
                     let data = null;
                     try {
                         const response = await fetch("http://192.168.10.65:3001/deposit", {
@@ -86,7 +88,7 @@ export function Deposit({ signingClient, address, }: DepositProps) {
                             headers: {
                                 "Content-type": "application/json"
                             },
-                            body: JSON.stringify({ txHash })
+                            body: JSON.stringify({ txHash, address })
                         })
                         data = await response.json();
                         globalContext.setUser(JSON.parse(data))

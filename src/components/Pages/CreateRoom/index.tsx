@@ -18,12 +18,10 @@ export const CreateRoom = () => {
 
     const createRoom = async (betAmount: number) => {
         if (globalContext) {
-            let code: number;
-            code = (Math.round(Math.random() * 1000000));
             let address: string | undefined;
             address = globalContext.user?.address;
 
-            socket.emit('create new room request', code, betAmount, address);
+            socket.emit('create new room request', betAmount, address);
             functionGameRoom();
         }
     }
@@ -83,8 +81,7 @@ export const CreateRoom = () => {
                                     // await getToken();
                                 }
                             }
-                        }>
-                            Submit</button>
+                        }>Submit</button>
                     </Modal>
                 </div>
             </div>
