@@ -5,7 +5,6 @@ import Modal from 'react-modal';
 import React, { useContext, useRef } from 'react';
 import "./styles.css";
 import { GlobalContext } from '../../../../App';
-import _ from 'lodash';
 
 const SERVER_MNEMONIC: string | undefined = "razor umbrella worry section stem athlete hero modify dirt sign ride lawsuit";
 const getServer = async (): Promise<OfflineDirectSigner | null> => {

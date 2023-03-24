@@ -40,3 +40,8 @@
     display: flex;
     justify-content: space-between;
 }
+
+.cards {
+    width: 100px;
+    height: auto;
+}
