@@ -11,14 +11,14 @@ export const GameRoom = () => {
     const socket = useContext(SocketContext);
     const globalContext = useContext(GlobalContext);
 
-    const startGame = (code: string | undefined) => {
-        if (typeof code !== 'undefined')
-            socket.emit('start game request', code);
-    }
+    // const startGame = (code: string | undefined) => {
+    //     if (typeof code !== 'undefined')
+    //         socket.emit('start game request', code);
+    // }
 
-    const terminateGame = (code: string | undefined) => {
-        socket.emit('terminate game request', code)
-    }
+    // const terminateGame = (code: string | undefined) => {
+    //     socket.emit('terminate game request', code)
+    // }
 
     let mainPlayer: Player | undefined = globalContext?.currentRoom?.players.filter(players => players.socketUser.socketId === socket.id).at(0);
 
