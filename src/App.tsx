@@ -22,16 +22,41 @@ export type GlobalContent = {
   token: string,
   setToken: React.Dispatch<React.SetStateAction<string>>,
   currentRoom: Room | null,
-  setCurrentRoom: React.Dispatch<React.SetStateAction<Room | null>>
+  setCurrentRoom: React.Dispatch<React.SetStateAction<Room | null>>,
   roomSet: RoomSet | null,
   setRoomSet: React.Dispatch<React.SetStateAction<RoomSet | null>>,
   functionGlobal: any,
   setFunctionGlobal: React.Dispatch<any>
 }
 
+type GetterContextType = {
+  roomSet: RoomSet | null,
+  currentRoom: Room | null,
+  signingClient: SigningStargateClient | null,
+  userWithBalance: UserWithBalance | null
+}
+
+type SetterContextType = {
+  setRoomSet: React.Dispatch<React.SetStateAction<RoomSet | null>>,
+  setCurrentRoom: React.Dispatch<React.SetStateAction<Room | null>>,
+  setSigningClient: React.Dispatch<React.SetStateAction<SigningStargateClient | null>>,
+  setUserWithBalance: React.Dispatch<React.SetStateAction<UserWithBalance | null>>
+}
+
+type UserWithBalance = {
+  user: User,
+  balance: number
+}
+
+type ContextType = {
+  getter: GetterContextType,
+  setter: SetterContextType
+}
+
 const socket: Socket = io('192.168.10.65:3001/');
 
 export const GlobalContext = createContext<GlobalContent | null>(null);
+export const ApplicationContext = React.createContext<ContextType | null>(null)
 export const SocketContext = createContext<Socket>(socket);
 
 declare global {
@@ -45,6 +70,22 @@ function App() {
   const [token, setToken] = useState<string>('');
   const [currentRoom, setCurrentRoom] = useState<Room | null>(null);
   const [roomSet, setRoomSet] = useState<RoomSet | null>(null);
+  const [userWithBalance, setUserWithBalance] = React.useState<UserWithBalance | null>(null)
+
+  const contextValue: ContextType = {
+    getter: {
+      roomSet,
+      currentRoom,
+      signingClient,
+      userWithBalance
+    },
+    setter: {
+      setRoomSet,
+      setCurrentRoom,
+      setSigningClient,
+      setUserWithBalance
+    }
+  }
 
   //USE EFFECT  
   //Yêu cầu kết nối ví, đăng nhập
@@ -69,6 +110,20 @@ function App() {
       localStorage.setItem('Last-Login-User', JSON.stringify({ user }));
     }
   }, [user]);
+
+  //alert join room status
+  useEffect(() => {
+    socket.on('success to join the room', () => {
+            alert('Success to join this room.')
+    })
+    socket.on('fail to join the room due to max player', () => {
+        alert('Fail to join the room due to max player.')
+    })
+    socket.on('fail to join the room due to signed somewhere', () => {
+        alert('Fail to join the room due to signed somewhere.')
+    })
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
 
   //FUNCTION
   //Check đăng nhập và kết nối ví
